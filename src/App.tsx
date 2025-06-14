@@ -1,10 +1,12 @@
 import "./App.css";
-import React from "react";
 import NavigationBar from "./components/navigation/NavigationBar";
+import { SearchBarProvider } from "./contexts/SearchBarContext";
 function App() {
   return (
     <div className="">
-      <NavigationBar />
+      <SearchBarProvider>
+        <NavigationBar />
+      </SearchBarProvider>
     </div>
   );
 }

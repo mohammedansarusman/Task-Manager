@@ -1,4 +1,3 @@
-import React from 'react'
 import { CgMenuGridO } from "react-icons/cg";
 
 
