@@ -1,15 +1,20 @@
 import { HiArrowLeft } from "react-icons/hi2";
 import { VscSearch } from "react-icons/vsc";
-import { useContext } from "react";
+import { useContext, useEffect, useRef } from "react";
 import { SearchBarContext } from "../../contexts/SearchBarContext";
 
 
 
 export const SearchBar = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const searchContext = useContext(SearchBarContext)
   const handleLeftArrow=()=>{
     searchContext?.toggleSearch()
   }
+  // puprose -  once the search bar opened then the focus would be in input tag
+  useEffect(()=>{
+    inputRef.current?.focus();
+  },[])
   return (
     <div className="w-full h-full absolute left-0">
       <div
@@ -22,7 +27,12 @@ export const SearchBar = () => {
             <HiArrowLeft onClick={handleLeftArrow}/>
           </button>
           <div className="w-full max-w-[500px] h-[25px] pl-[1px]">
-            <input type="text" placeholder="Search To Do" className="text-black text-sm outline-0 w-[95%]"/>
+            <input 
+              type="text" 
+              placeholder="Search To Do" 
+              className="text-black text-sm outline-0 w-[95%]"
+              ref = {inputRef}
+            />
           </div>
         </div>
         {/* search icon */}

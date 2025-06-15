@@ -11,7 +11,7 @@ const NavigationBar = () => {
 const searchContext = useContext(SearchBarContext);
 
   return (
-    <div className="bg-blue-500 w-full h-[50px] flex justify-between relative">
+    <div className="bg-blue-500 w-full h-[50px] flex justify-between relative text-white">
       { searchContext?.flag && <SearchBar />}
       {/* menu icon & heading */}
       <section className="w-[200px] flex flex-row items-center">
