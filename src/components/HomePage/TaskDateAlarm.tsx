@@ -2,25 +2,18 @@
 
 import { MdOutlineAccessAlarm } from "react-icons/md";
 import SelectCalender from "./SelectCalender";
-import { Calendar } from "../ui/calendar";
-import { DayButton, DayPicker, getDefaultClassNames } from "react-day-picker";
-import { cn } from "@/lib/utils";
+import { useContext } from "react";
+import { CalenderContext} from "../../contexts/CalenderContext";
 
-
-import { useState } from "react";
 
 const TaskDateAlarm = () => {
-  const [date, setDate] = useState<Date>(new Date());
-  const [flagDate, setFlagDate] = useState<boolean>(false)
-  // const handleClick = () =>{
-  //   setFlagDate(true);
-  // }
+  const consumer = useContext(CalenderContext);
   return (
     <section className="w-full h-[50px] bg-gray-100 mt-[2px] flex justify-between items-center">
-      <div className="w-[75%] h-full flex justify-start items-center gap-4 pl-[20px] text-black">
+      <div className="w-[75%] h-full flex justify-start items-center gap-2 pl-[20px] text-black">
         {/* due date */}
-
-        <SelectCalender />
+        <div className="">{<SelectCalender />}</div>
+        <div className="h-full flex items-center justify-center text-sm font-light">{consumer?.schedule}</div>
         <div className="w-[30px] h-[30px] flex justify-center items-center hover:bg-white">
           <MdOutlineAccessAlarm size={20} />
         </div>

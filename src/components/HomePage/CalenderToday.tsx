@@ -1,9 +1,22 @@
+import { useContext } from "react";
 import { IoTodayOutline } from "react-icons/io5";
+import { CalenderContext} from "../../contexts/CalenderContext";
+
 
 const CalenderToday = () => {
   const weekDay: string[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const scheduleTask = useContext(CalenderContext);
+  // handleclick function executed
+  // update the text today and today's date in global state variable.
+  const handleClick =()=>{
+    scheduleTask?.setSchedule("Today");
+  }
+
   return (
-    <main className="w-full flex justify-around items-center text-sm font-light hover:bg-gray-100 px-2 py-2">
+    <main 
+      className="w-full flex justify-around items-center text-sm font-light hover:bg-gray-100 px-2 py-2"
+      onClick={handleClick}
+    >
       <aside className="w-1/4 flex justify-start items-center">
         <IoTodayOutline />
       </aside>

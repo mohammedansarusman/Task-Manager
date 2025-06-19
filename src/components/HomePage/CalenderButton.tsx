@@ -1,4 +1,3 @@
-import React from "react";
 import image2 from "../../assets/mainImage2.svg";
 import {
   Tooltip,
