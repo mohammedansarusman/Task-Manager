@@ -10,11 +10,12 @@ const CalenderToday = () => {
   // update the text today and today's date in global state variable.
   const handleClick =()=>{
     scheduleTask?.setSchedule("Today");
+    scheduleTask?.setTurnPopOver(prev=>!prev)
   }
 
   return (
     <main 
-      className="w-full flex justify-around items-center text-sm font-light hover:bg-gray-100 px-2 py-2"
+      className="w-full flex justify-around items-center text-sm font-light hover:bg-gray-100 px-2 py-2 cursor-pointer"
       onClick={handleClick}
     >
       <aside className="w-1/4 flex justify-start items-center">

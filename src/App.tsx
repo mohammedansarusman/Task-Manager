@@ -5,7 +5,7 @@ import { CalenderContextprovider } from "./contexts/CalenderContext";
 import HomePage from "./components/HomePage/HomePage";
 function App() {
   return (
-    <div className="w-full h-[100vh] bg-white">
+    <div className="w-full h-[100vh] bg-white fixed">
       <CalenderContextprovider>
         <SearchBarProvider>
           <NavigationBar />
