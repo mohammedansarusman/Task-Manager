@@ -19,9 +19,10 @@ const SelectCalender = ({ align = "start" }: PopoverProps) => {
   const [dayDate, setDayDate] = useState<Date>(new Date());
   const [calendarFlag,setCaledarFlag] = useState<boolean>(false)
 
-  const handleClick = () =>{
+  const handleSave = () =>{
     consumer?.setSchedule(dayDate.toDateString())
     setCaledarFlag(prev=>!prev)
+    consumer?.setTurnPopOver(prev=>!prev)
   }
   
   return (
@@ -59,11 +60,12 @@ const SelectCalender = ({ align = "start" }: PopoverProps) => {
                 onSelect={setDayDate}
                 mode="single"
                 disabled={{ before: new Date(new Date().setHours(0, 0, 0, 0)) }}
-
                 className="w-full h-full p-0 m-0"
               />
+
+            
               <button className="w-[100px] h-[40px] py-[10px] bg-blue-500 text-white"
-               onClick={handleClick}
+               onClick={handleSave}
               >
                 Save
               </button>

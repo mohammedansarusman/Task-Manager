@@ -11,7 +11,7 @@ export const SearchIcon = () => {
   };
   return (
     <div
-      className="w-[50px] h-full flex justify-center items-center hover:bg-blue-900"
+      className="w-[50px] h-full flex justify-center items-center hover:bg-sky-900"
       onClick={handleClick}
     >
       <VscSearch />
