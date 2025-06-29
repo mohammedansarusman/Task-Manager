@@ -20,7 +20,7 @@ const TaskDateAlarm = () => {
         {/* reminder icon - if we click then popover will trigger*/}
         <div className="cursor-pointer">{<SelectReminder />}</div>
         <h1 className="text-sm font-light">
-          {typeof consumer?.reminder === "string" && consumer.reminder}
+          {typeof consumer?.reminder === "string" && consumer.reminder + " " + consumer.hour }
         </h1>
       </div>
       <div className="w-[25%] h-full flex justify-end items-center pr-[20px]">

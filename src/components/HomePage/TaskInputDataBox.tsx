@@ -22,6 +22,7 @@ const TaskInputDataBox = () => {
       >
         <h3 className="text-xl font-light cursor-pointer" onClick={handleClick}>
           {flagDateAlarm ? (
+            // rounderd logo 
             <div className="w-[15px] h-[15px] rounded-full border  border-blue-500"></div>
           ) : (
             "+"
@@ -29,12 +30,15 @@ const TaskInputDataBox = () => {
         </h3>
         {!flagDateAlarm && <h3>Add a task</h3>}
         {flagDateAlarm && (
-          <input
+          <form>
+             <input
             type="text"
             placeholder="Add a task"
             ref={inputRef}
             className="outline-none text-black placeholder:text-black font-light text-sm"
-          />
+          /> 
+          </form>
+          
         )}
       </header>
       {/* due date and alarm */}

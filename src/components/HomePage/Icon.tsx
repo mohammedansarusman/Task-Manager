@@ -1,5 +1,3 @@
-import React from 'react'
-import image4 from "../../assets/mainImage4.png";
 import {
   Tooltip,
   TooltipContent,
@@ -7,12 +5,16 @@ import {
   TooltipArrow,
 } from "@radix-ui/react-tooltip";
 
-const ToDoButton = () => {
+type IconProp ={
+    image: string;
+    iconName: string;
+}
+const Icon = ({image, iconName}: IconProp) => {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <figure className="w-[40px] h-[40px] flex justify-center items-center hover:bg-gray-100">
-          <img src={image4} alt="icon" className="p-2" />
+          <img src={image} alt="icon" className="" />
         </figure>
       </TooltipTrigger>
       <TooltipContent
@@ -20,11 +22,13 @@ const ToDoButton = () => {
         sideOffset={5}
         className="bg-white px-3 py-1  text-black drop-shadow-lg text-sm font-light"
       >
-        To Do
+        {iconName}
         <TooltipArrow className="fill-white" />
       </TooltipContent>
     </Tooltip>
-  )
-}
+  );
+};
 
-export default ToDoButton
+export default Icon;
+
+  

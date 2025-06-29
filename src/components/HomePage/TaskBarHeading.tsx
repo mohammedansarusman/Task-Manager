@@ -1,4 +1,3 @@
-import React from "react";
 import { IoGridSharp } from "react-icons/io5";
 import { BsList } from "react-icons/bs";
 import { TbArrowsSort } from "react-icons/tb";
