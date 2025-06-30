@@ -9,8 +9,11 @@ type CalenderProps = {
   hour: string;
   setHour: React.Dispatch<React.SetStateAction<string>>;
   reminderPop: boolean;
-  setReminderPop: React.Dispatch<React.SetStateAction<boolean>>
-  
+  setReminderPop: React.Dispatch<React.SetStateAction<boolean>>;
+  task: string;
+  setTask: React.Dispatch<React.SetStateAction<string>>
+  taskStore: string[];
+  setTaskStore: React.Dispatch<React.SetStateAction<string[]>>
 };
 type ProviderProp = {
   children: ReactNode;
@@ -21,13 +24,33 @@ export const CalenderContext = createContext<CalenderProps | undefined>(
 );
 
 export const CalenderContextprovider = ({ children }: ProviderProp) => {
-    const [schedule, setSchedule] = useState<Date | string>("");
-    const [turnPopOver, setTurnPopOver] = useState<boolean>(false);
-    const [reminder, setReminder] = useState<Date | string>("");
-    const [hour, setHour] = useState<string>("");
-    const [reminderPop, setReminderPop] = useState<boolean>(false);
+  const [schedule, setSchedule] = useState<Date | string>("");
+  const [turnPopOver, setTurnPopOver] = useState<boolean>(false);
+  const [reminder, setReminder] = useState<Date | string>("");
+  const [hour, setHour] = useState<string>("");
+  const [reminderPop, setReminderPop] = useState<boolean>(false);
+  const [task,setTask] = useState<string>("")
+  const [taskStore, setTaskStore] = useState<string[]>([])
+
   return (
-    <CalenderContext.Provider value={{ schedule, setSchedule, turnPopOver, setTurnPopOver, reminder, setReminder, hour, setHour, reminderPop, setReminderPop }}>
+    <CalenderContext.Provider
+      value={{
+        schedule,
+        setSchedule,
+        turnPopOver,
+        setTurnPopOver,
+        reminder,
+        setReminder,
+        hour,
+        setHour,
+        reminderPop,
+        setReminderPop,
+        task,
+        setTask,
+        taskStore,
+        setTaskStore
+      }}
+    >
       {children}
     </CalenderContext.Provider>
   );
