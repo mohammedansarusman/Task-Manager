@@ -1,4 +1,8 @@
 import { createContext, useState, type ReactNode } from "react";
+type Task = {
+  task: string;
+  dueDate: Date;
+}
 type CalenderProps = {
   schedule: Date | string;
   setSchedule: React.Dispatch<React.SetStateAction<Date | string>>;
@@ -12,8 +16,8 @@ type CalenderProps = {
   setReminderPop: React.Dispatch<React.SetStateAction<boolean>>;
   task: string;
   setTask: React.Dispatch<React.SetStateAction<string>>
-  taskStore: string[];
-  setTaskStore: React.Dispatch<React.SetStateAction<string[]>>
+  taskStore: Task[];
+  setTaskStore: React.Dispatch<React.SetStateAction<Task[]>>
 };
 type ProviderProp = {
   children: ReactNode;
@@ -30,7 +34,7 @@ export const CalenderContextprovider = ({ children }: ProviderProp) => {
   const [hour, setHour] = useState<string>("");
   const [reminderPop, setReminderPop] = useState<boolean>(false);
   const [task,setTask] = useState<string>("")
-  const [taskStore, setTaskStore] = useState<string[]>([])
+  const [taskStore, setTaskStore] = useState<Task[]>([])
 
   return (
     <CalenderContext.Provider

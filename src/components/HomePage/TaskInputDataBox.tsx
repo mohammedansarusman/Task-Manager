@@ -26,9 +26,10 @@ const TaskInputDataBox = () => {
     event.preventDefault();
     consumer?.setTaskStore(prev=>[...prev,consumer.task])
     console.log("task store", consumer?.taskStore);
+    consumer?.setTask("");
   }
   return (
-    <main className="w-full h-[110px] pl-[70px] pr-[20px]">
+    <main className="w-full h-[110px] pl-[70px] pr-[20px] ">
       <header
         className="w-full h-[50px] bg-white flex justify-start items-center 
       text-blue-600 gap-4 px-[10px] drop-shadow-md drop-shadow-gray-300 relative"
