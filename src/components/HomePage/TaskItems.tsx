@@ -2,7 +2,7 @@ import React from 'react'
 
 type TaskItemsProp = {
     details: string;
-    dueDate: Date;
+    dueDate: string;
 }
 
 export const TaskItems = ({details, dueDate}: TaskItemsProp) => {

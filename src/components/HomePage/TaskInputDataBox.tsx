@@ -24,7 +24,7 @@ const TaskInputDataBox = () => {
   }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>)=>{
     event.preventDefault();
-    consumer?.setTaskStore(prev=>[...prev,consumer.task])
+    consumer?.setTaskStore((prev)=>([...prev,{task:consumer.task, dueDate:consumer.schedule}]))
     console.log("task store", consumer?.taskStore);
     consumer?.setTask("");
   }
