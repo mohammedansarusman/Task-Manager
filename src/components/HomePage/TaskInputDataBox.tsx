@@ -20,30 +20,36 @@ const TaskInputDataBox = () => {
   
   const handleChange = (event:React.ChangeEvent<HTMLInputElement>) =>{
     consumer?.setTask(event.target.value)
-    console.log("value",event.target.value);
   }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>)=>{
     event.preventDefault();
-    consumer?.setTaskStore((prev)=>([...prev,{task:consumer.task, dueDate:consumer.schedule}]))
-    console.log("task store", consumer?.taskStore);
+    if(!consumer?.task.trim() || consumer.schedule==="" || consumer.reminder===""){
+     return
+    }
+    consumer?.setTaskStore((prev)=>([...prev,{task:consumer.task, dueDate:consumer.schedule, reminderDate:consumer.reminder}]))
     consumer?.setTask("");
+    consumer?.setSchedule("");
+    consumer?.setReminder("");
+    consumer.setHour("");
+    
+
   }
   return (
     <main className="w-full h-[110px] pl-[70px] pr-[20px] ">
       <header
         className="w-full h-[50px] bg-white flex justify-start items-center 
-      text-blue-600 gap-4 px-[10px] drop-shadow-md drop-shadow-gray-300 relative"
+      text-blue-600 gap-4 drop-shadow-md drop-shadow-gray-300 relative"
       >
         {/* the plus icon clicked then the flagDateAlarm state become true */}
-        <h3 className="text-xl font-light cursor-pointer" onClick={handleClick}>
+        <div className="w-[50px] h-full text-xl font-light cursor-pointer flex justify-center items-center" onClick={handleClick}>
           {flagDateAlarm ? (
             // rounderd logo
-            <div className="w-[15px] h-[15px] rounded-full border  border-blue-500"></div>
+            <div className="w-[15px] h-[15px] rounded-full border  border-sky-500"></div>
           ) : (
             // plus icon
-            "+"
+            <span>+</span>
           )}
-        </h3>
+        </div>
         {!flagDateAlarm && <h3>Add a task</h3>}
         {flagDateAlarm && (
           <form onSubmit={handleSubmit}>

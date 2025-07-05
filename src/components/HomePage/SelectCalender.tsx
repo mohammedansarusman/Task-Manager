@@ -20,7 +20,7 @@ const SelectCalender = ({ align = "start" }: PopoverProps) => {
   const [calendarFlag, setCaledarFlag] = useState<boolean>(false);
 
   const weekDay: string[] = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  const today = weekDay[new Date().getDay()];
+  const today: string = weekDay[new Date().getDay()];
   const tomorrow = weekDay[new Date().getDay() + 1];
   const currentDate = new Date();
   // modifiedDate for the Calendar menu next week feature.

@@ -1,4 +1,4 @@
-export const useTodayTime = () => {
+export const useTodayTime = (): string => {
     const now: Date = new Date();
     now.setHours(now.getHours() + 3); // Add 3 hours
     now.setMinutes(0);

@@ -19,8 +19,8 @@ type PopoverProps = {
 };
 const SelectReminder = ({ align = "start" }: PopoverProps) => {
   const consumer = useContext(CalenderContext);
-  const laterTodayTime = useTodayTime();
-  const tomorrowTime = useTomorrowTime();
+  const laterTodayTime: string = useTodayTime();
+  const tomorrowTime: string = useTomorrowTime();
 
   return (
     <Popover

@@ -6,21 +6,16 @@ type MenuItemProp = {
   day: string;
   iconName: IconType;
   weekDay?: string;
-  nextWeekDate?: Date | string;
+  nextWeekDate?: string;
 };
 
-const MenuItem = ({
-  day,
-  iconName: Icon,
-  weekDay,
-  nextWeekDate,
-}: MenuItemProp) => {
+const MenuItem = ({ day, iconName: Icon, weekDay, nextWeekDate, }: MenuItemProp) => {
   const scheduleTask = useContext(CalenderContext);
-  // handleclick function executed
-  // update the text today and today's date in global state variable.
+  
   const handleClick = () => {
     if (day === "Next Week") {
       if (nextWeekDate !== undefined) {
+        console.log("typeof=>",typeof nextWeekDate)
         scheduleTask?.setSchedule(nextWeekDate);
       }
     } else if (day === "Today" || day === "Tomorrow") {

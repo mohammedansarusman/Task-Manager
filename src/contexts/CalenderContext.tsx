@@ -2,14 +2,17 @@ import { createContext, useState, type ReactNode } from "react";
 type Task = {
   task: string;
   dueDate: string;
+  reminderDate: string;
 }
 type CalenderProps = {
+  // schedule is using for the calendar date 
   schedule: string;
   setSchedule: React.Dispatch<React.SetStateAction<string>>;
   turnPopOver: boolean;
   setTurnPopOver: React.Dispatch<React.SetStateAction<boolean>>;
-  reminder: Date | string;
-  setReminder: React.Dispatch<React.SetStateAction<Date | string>>;
+  // reminder is using for reminder date
+  reminder: string;
+  setReminder: React.Dispatch<React.SetStateAction<string>>;
   hour: string;
   setHour: React.Dispatch<React.SetStateAction<string>>;
   reminderPop: boolean;
@@ -30,7 +33,7 @@ export const CalenderContext = createContext<CalenderProps | undefined>(
 export const CalenderContextprovider = ({ children }: ProviderProp) => {
   const [schedule, setSchedule] = useState<string>("");
   const [turnPopOver, setTurnPopOver] = useState<boolean>(false);
-  const [reminder, setReminder] = useState<Date | string>("");
+  const [reminder, setReminder] = useState<string>("");
   const [hour, setHour] = useState<string>("");
   const [reminderPop, setReminderPop] = useState<boolean>(false);
   const [task,setTask] = useState<string>("")
