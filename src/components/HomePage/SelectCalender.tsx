@@ -28,8 +28,10 @@ const SelectCalender = ({ align = "start" }: PopoverProps) => {
 
   const handleSave = () => {
     consumer?.setSchedule(dayDate.toDateString());
+
     setCaledarFlag((prev) => !prev);
     consumer?.setTurnPopOver((prev) => !prev);
+
   };
 
   return (

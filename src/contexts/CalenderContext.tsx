@@ -3,6 +3,11 @@ type Task = {
   task: string;
   dueDate: string;
   reminderDate: string;
+  currentDateTime: Date;
+  dueTodayDateTime: Date;
+  dueTomorrowDateTime : Date;
+  dueNextWeekDateTime: Date;
+  duePickDate ?: Date;
 }
 type CalenderProps = {
   // schedule is using for the calendar date 
@@ -19,8 +24,10 @@ type CalenderProps = {
   setReminderPop: React.Dispatch<React.SetStateAction<boolean>>;
   task: string;
   setTask: React.Dispatch<React.SetStateAction<string>>
+  // this is the store that saving all data like task due date, reminder date, task name.
   taskStore: Task[];
   setTaskStore: React.Dispatch<React.SetStateAction<Task[]>>
+  
 };
 type ProviderProp = {
   children: ReactNode;
@@ -55,7 +62,7 @@ export const CalenderContextprovider = ({ children }: ProviderProp) => {
         task,
         setTask,
         taskStore,
-        setTaskStore
+        setTaskStore,
       }}
     >
       {children}
