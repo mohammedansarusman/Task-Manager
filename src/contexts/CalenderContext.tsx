@@ -7,12 +7,18 @@ type Task = {
   dueTodayDateTime: Date;
   dueTomorrowDateTime : Date;
   dueNextWeekDateTime: Date;
-  duePickDate ?: Date;
+  duePickDate: Date;
+  reminderLaterToday: Date;
+  reminderTomorrow: Date;
+  reminderNextWeek: Date;
 }
+
 type CalenderProps = {
   // schedule is using for the calendar date 
   schedule: string;
   setSchedule: React.Dispatch<React.SetStateAction<string>>;
+  pickDate: Date;
+  setPickDate: React.Dispatch<React.SetStateAction<Date>>;
   turnPopOver: boolean;
   setTurnPopOver: React.Dispatch<React.SetStateAction<boolean>>;
   // reminder is using for reminder date
@@ -39,6 +45,7 @@ export const CalenderContext = createContext<CalenderProps | undefined>(
 
 export const CalenderContextprovider = ({ children }: ProviderProp) => {
   const [schedule, setSchedule] = useState<string>("");
+  const [pickDate, setPickDate] = useState<Date>(new Date());
   const [turnPopOver, setTurnPopOver] = useState<boolean>(false);
   const [reminder, setReminder] = useState<string>("");
   const [hour, setHour] = useState<string>("");
@@ -63,6 +70,8 @@ export const CalenderContextprovider = ({ children }: ProviderProp) => {
         setTask,
         taskStore,
         setTaskStore,
+        pickDate,
+        setPickDate,
       }}
     >
       {children}

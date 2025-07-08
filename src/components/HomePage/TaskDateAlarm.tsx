@@ -19,10 +19,26 @@ const TaskDateAlarm = () => {
     const dueTomorrowDateTime: Date = new Date(currentDateTime);
     dueTomorrowDateTime.setDate(dueTomorrowDateTime.getDate()+2);
     dueTomorrowDateTime.setHours(0,0,0,0);
+    
     // next week until due time
     const dueNextWeekDateTime: Date = new Date(currentDateTime);
     dueNextWeekDateTime.setDate(dueNextWeekDateTime.getDate()+7);
     dueNextWeekDateTime.setHours(0,0,0,0);
+    
+    // later today = today + 3 hours
+    const laterToday: Date  = new Date();
+    laterToday.setHours(laterToday.getHours()+3,0,0,0);
+    
+    // reminder Tomorrow.
+    const reminderTomorrow: Date = new Date();
+    reminderTomorrow.setDate(reminderTomorrow.getDate()+1);
+    reminderTomorrow.setHours(reminderTomorrow.getHours(),0,0,0)
+
+    // reminder next week
+    const reminderNextWeek: Date = new Date();
+    reminderNextWeek.setDate(reminderNextWeek.getDate()+7);
+    reminderNextWeek.setHours(reminderNextWeek.getHours(),0,0,0);
+    
       
     
 
@@ -38,6 +54,11 @@ const TaskDateAlarm = () => {
           dueTodayDateTime: dueTodayDateTime,
           dueTomorrowDateTime: dueTomorrowDateTime,
           dueNextWeekDateTime: dueNextWeekDateTime,
+          duePickDate: consumer.pickDate,
+          reminderLaterToday:laterToday,
+          reminderTomorrow,
+          reminderNextWeek,
+
         }
       ]
     ))
