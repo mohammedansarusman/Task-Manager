@@ -14,22 +14,41 @@ const ReminderCalenderPopOver = () => {
   const consumer = useContext(CalenderContext);
   // set initial date of calendar
   const [dayDate, setDayDate] = useState<Date>(new Date());
-  
+
   // initially the calendar is off, calender will turn off after save button 
-  const [reminderFlag, setReminderFlag] = useState<boolean>(false);  
+  const [reminderFlag, setReminderFlag] = useState<boolean>(false);
   const timeArray = useTimeArray();
-  
-  const handleSaveButton = () =>{
+
+  const handleSaveButton = () => {
     consumer?.setReminder(dayDate?.toDateString())
     consumer?.setHour(consumer.hour);
-    setReminderFlag(prev=>!prev);
+    setReminderFlag(prev => !prev);
     consumer?.setReminderPop(false);
+
+    const time12 = consumer?.hour ?? "";
+    const [time, modifier] = time12.split(" ");
+    const [hourVal, minuteVal] = time.split(":");
+    const hour = Number(hourVal);
+    // let currentDate: Date = new Date();
+    let currentDate: Date = dayDate;
+
+    if (modifier === "PM") {
+      if (hour === 12) {
+        currentDate.setHours(0 + hour, 0, 0, 0);
+      } else {
+        currentDate.setHours(12 + hour, 0, 0, 0);
+      }
+    } else {
+      currentDate.setHours(hour, 0, 0);
+    }
+    consumer?.setPickDateTime(currentDate);
+
   }
-  
+
   return (
     <Popover open={reminderFlag} onOpenChange={setReminderFlag}>
       <PopoverTrigger className="focus:outline-none focus:ring-0">
-        <MenuItem2 day="Pick a date" iconName={IoIosToday} weekDay=""/>
+        <MenuItem2 day="Pick a date" iconName={IoIosToday} weekDay="" />
       </PopoverTrigger>
       <PopoverContent
         sideOffset={-182}
@@ -38,7 +57,7 @@ const ReminderCalenderPopOver = () => {
         <div className="scale-[0.80] flex flex-col items-center justify-center gap-1 ">
           <Calendar
             selected={dayDate}
-            onSelect={(dateData: Date)=>setDayDate(dateData)}
+            onSelect={(dateData: Date) => setDayDate(dateData)}
             mode="single"
             disabled={{ before: new Date(new Date().setHours(0, 0, 0, 0)) }}
             className="w-full h-full p-0 m-0"

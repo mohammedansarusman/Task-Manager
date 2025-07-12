@@ -6,6 +6,7 @@ type TaskItemsProp = {
   details: string;
   dueDate: string;
   reminderDate: string;
+  dueTodayDateTime: Date;
 }
 type FlagProps = {
   tick: boolean;
@@ -13,15 +14,13 @@ type FlagProps = {
   tickClick?: boolean;
 }
 
-export const TaskItems = ({ details, dueDate, reminderDate }: TaskItemsProp) => {
+export const TaskItems = ({ details, dueDate, reminderDate, dueTodayDateTime }: TaskItemsProp) => {
   const [flag, setFlag] = useState<FlagProps>({ tick: false, important: false, tickClick: false })
 
   // for the activation and de-activation of tick mark in complete feature
   const handleHover = (): void => setFlag(prev=>({...prev,tick:true}));
   const handleMouseLeave = (): void => setFlag(prev=>({...prev,tick:false}));
   // const handleTickClick = () =>setFlag(prev=>({...prev,tick:true}))
-  
-
 
   return (
     <main className='w-[100%] h-[50px] bg-white hover:bg-slate-100 flex items-center justify-between'>
@@ -46,7 +45,8 @@ export const TaskItems = ({ details, dueDate, reminderDate }: TaskItemsProp) => 
         </section>
         <section className="h-[25px] flex justify-start gap-[20px]">
           {/* due date */}
-          <h1>{dueDate}</h1>
+          <h1 className="">{dueDate}</h1>
+          {/* dueTodayDateTime<currentDate ? "bg-red-400" : "bg-blue-500" */}
           <h1>{reminderDate}</h1>
         </section>
       </div>
