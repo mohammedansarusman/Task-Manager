@@ -2,13 +2,16 @@ import { AiOutlineCheck } from "react-icons/ai";
 import { MdStarBorder, MdStar } from "react-icons/md";
 import { CalenderContext } from "../../contexts/CalenderContext";
 
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 type TaskItemsProp = {
   details: string;
   dueDate: string;
   reminderDate: string;
   id: number;
   completed: boolean;
+  status?: string;
+  dueTodayDateTime: Date;
+  dueTomorrowDateTime: Date;
 }
 type FlagProps = {
   tick: boolean;
@@ -16,11 +19,10 @@ type FlagProps = {
   tickClick?: boolean;
 }
 
-export const TaskItems = ({ details, dueDate, reminderDate, id, completed}: TaskItemsProp) => {
+export const TaskItems = ({ details, dueDate, reminderDate, id, completed, status, dueTodayDateTime, dueTomorrowDateTime}: TaskItemsProp) => {
   const consumer = useContext(CalenderContext)
-
   const [flag, setFlag] = useState<FlagProps>({ tick: false, important: false, tickClick: false })
-
+  const presentDateTime: Date= new Date();
   // for the activation and de-activation of tick mark in complete feature
   const handleHover = (): void => setFlag(prev=>({...prev,tick:true}));
   const handleMouseLeave = (): void => setFlag(prev=>({...prev,tick:false}));
@@ -38,6 +40,30 @@ export const TaskItems = ({ details, dueDate, reminderDate, id, completed}: Task
     setFlag(prev=>({...prev,tickClick: true}));
     
   }
+  useEffect(()=>{
+    
+  },[consumer?.refresh])
+
+  console.log("present date",presentDateTime);
+  console.log("refresh vale",consumer?.refresh);
+  console.log("dueTodaydate time",dueTodayDateTime);
+  console.log("status",status)
+
+  let result = false;
+  if(status==="Today"){
+    if(presentDateTime>dueTodayDateTime){
+      result=true;
+    }else{
+      result = false;
+    }
+  }else if(status==="Tomorrow"){
+    if(presentDateTime>dueTomorrowDateTime){
+      result=true
+    }else{
+      result=false;
+    }
+  }
+  
   return (
     <main className='w-[100%] h-[50px] bg-white hover:bg-slate-100 flex items-center justify-between'>
       <aside className="w-[50px] h-full">
@@ -57,7 +83,7 @@ export const TaskItems = ({ details, dueDate, reminderDate, id, completed}: Task
       <div className="w-full flex flex-col items-start justify-between text-sm font-light text-slate-900">
         <section className="h-[25px] py-1 font-semibold">
           {/* tasks */}
-          <h1 className={completed ? "line-through text-gray-500" : ""}>{details}</h1>
+          <h1 className={`${completed ? "line-through text-gray-500" : ""} ${result ? "text-red-500" : "text-black"}`}>{details}</h1>
         </section>
         <section className="h-[25px] flex justify-start gap-[20px]">
           {/* due date */}

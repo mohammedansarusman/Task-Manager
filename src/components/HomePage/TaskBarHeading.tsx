@@ -1,8 +1,16 @@
 import { IoGridSharp } from "react-icons/io5";
 import { BsList } from "react-icons/bs";
 import { TbArrowsSort } from "react-icons/tb";
+import { CalenderContext } from "../../contexts/CalenderContext";
+import { useContext } from "react";
 
 const TaskBarHeading = () => {
+  const consumer = useContext(CalenderContext);
+  
+  const handleClick = () =>{
+    console.log("clicked")
+    consumer?.setRefresh(prev=>prev+1);
+  }
   return (
     <main className="w-full h-[70px] pl-[70px] pt-[25px] flex justify-between items-center">
       <section className="flex justify-between items-center w-1/4 h-full">
@@ -13,13 +21,17 @@ const TaskBarHeading = () => {
           <IoGridSharp className="w-1/2 h-1/2 text-sky-600" />
         </figure>
         <figure className="w-[50px] h-full flex justify-center items-center hover:bg-white">
-          <BsList className="w-1/2 h-1/2 text-sky-600"/>
+          <BsList className="w-1/2 h-1/2 text-sky-600" />
         </figure>
         <figure className="w-[50px] h-full flex justify-center items-center hover:bg-white">
-          <TbArrowsSort className="w-1/2 h-1/2 text-sky-600"/>
+          <TbArrowsSort className="w-1/2 h-1/2 text-sky-600" />
         </figure>
-        <button className="text-sm font-semibold text-sky-600 cursor-pointer w-[75px] border-2 border-sky-600 rounded-full px-[10px]">Refresh</button>
-
+        <button 
+          className="text-sm font-semibold text-sky-600 cursor-pointer w-[75px] border-2 border-sky-600 rounded-full px-[10px] py-[5px] hover:text-sky-700 bg-white"
+          onClick={handleClick}
+        >
+          Refresh
+        </button>
       </aside>
     </main>
   );

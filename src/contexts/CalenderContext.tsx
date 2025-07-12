@@ -37,12 +37,11 @@ type CalenderProps = {
   setPickDateTime: React.Dispatch<React.SetStateAction<Date>>;
   task: string;
   setTask: React.Dispatch<React.SetStateAction<string>>
-  
   // this is the store that saving all data like task due date, reminder date, task name.
   taskStore: Task[];
   setTaskStore: React.Dispatch<React.SetStateAction<Task[]>>
-
-  
+  refresh: number;
+  setRefresh: React.Dispatch<React.SetStateAction<number>>;
 };
 type ProviderProp = {
   children: ReactNode;
@@ -62,6 +61,7 @@ export const CalenderContextprovider = ({ children }: ProviderProp) => {
   const [task,setTask] = useState<string>("");
   const [taskStore, setTaskStore] = useState<Task[]>([]);
   const [pickDateTime, setPickDateTime] = useState<Date>(new Date());
+  const [refresh,setRefresh] = useState<number>(0);
 
   return (
     <CalenderContext.Provider
@@ -84,6 +84,8 @@ export const CalenderContextprovider = ({ children }: ProviderProp) => {
         setPickDate,
         pickDateTime,
         setPickDateTime,
+        refresh,
+        setRefresh,
       }}
     >
       {children}
