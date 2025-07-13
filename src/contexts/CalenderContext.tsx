@@ -1,4 +1,5 @@
 import { createContext, useState, type ReactNode } from "react";
+
 export type Task = {
   id: number
   task: string;
@@ -13,6 +14,8 @@ export type Task = {
   reminderTomorrow: Date;
   reminderNextWeek: Date;
   reminderPickDateTime?: Date;
+  completed: boolean;
+  status: string;
 }
 
 type CalenderProps = {
@@ -29,14 +32,16 @@ type CalenderProps = {
   hour: string;
   setHour: React.Dispatch<React.SetStateAction<string>>;
   reminderPop: boolean;
+  setReminderPop: React.Dispatch<React.SetStateAction<boolean>>;
   pickDateTime: Date;
   setPickDateTime: React.Dispatch<React.SetStateAction<Date>>;
-  setReminderPop: React.Dispatch<React.SetStateAction<boolean>>;
   task: string;
   setTask: React.Dispatch<React.SetStateAction<string>>
+  
   // this is the store that saving all data like task due date, reminder date, task name.
   taskStore: Task[];
   setTaskStore: React.Dispatch<React.SetStateAction<Task[]>>
+
   
 };
 type ProviderProp = {
@@ -78,8 +83,7 @@ export const CalenderContextprovider = ({ children }: ProviderProp) => {
         pickDate,
         setPickDate,
         pickDateTime,
-        setPickDateTime
-
+        setPickDateTime,
       }}
     >
       {children}

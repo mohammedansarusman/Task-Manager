@@ -15,7 +15,6 @@ const MenuItem = ({ day, iconName: Icon, weekDay, nextWeekDate, }: MenuItemProp)
   const handleClick = () => {
     if (day === "Next Week") {
       if (nextWeekDate !== undefined) {
-        console.log("typeof=>",typeof nextWeekDate)
         scheduleTask?.setSchedule(nextWeekDate);
       }
     } else if (day === "Today" || day === "Tomorrow") {

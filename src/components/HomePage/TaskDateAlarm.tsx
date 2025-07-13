@@ -63,6 +63,8 @@ const TaskDateAlarm = () => {
         reminderNextWeek,
         reminderPickDateTime: consumer.pickDateTime,
         id: id,
+        completed:false,
+        status: consumer.schedule,
       }
       ]
     ))
