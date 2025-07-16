@@ -1,7 +1,7 @@
 import { TaskItems } from "./TaskItems";
-import { useContext, useState, useEffect } from "react";
+import { useContext, useState} from "react";
 import { CalenderContext, type Task } from "../../contexts/CalenderContext";
-import { AiOutlineDown } from "react-icons/ai";
+// import { AiOutlineDown } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
 
 
@@ -11,14 +11,11 @@ export const TaskBlock = () => {
   const completedTasks: Task[] = consumer?.taskStore.filter(item => item.completed === true) ?? [];
   const notCompletedTasks: Task[] = consumer?.taskStore.filter(item => !item.completed) ?? [];
   const [flagArrow, setFlagArrow] = useState<boolean>(false)
-  const presentDateTime: Date = new Date()
+  // const presentDateTime: Date = new Date()
   const [dueTodayDateTime, setDueTodayDateTime] = useState<string>("");
 
 
   console.log("task store in taskblock", notCompletedTasks);
-  useEffect(() => {
-
-  }, [consumer?.refresh])
 
 
   return (
@@ -27,30 +24,32 @@ export const TaskBlock = () => {
         .slice()
         .reverse()
         .map((item) => {
-          if (item.status === "Today") {
-            if (presentDateTime > item.dueTodayDateTime) {
-              setDueTodayDateTime(item.dueTodayDateTime.toDateString);
-            } else {
-              setDueTodayDateTime(item.dueDate);
-            }
-          } else if (item.status === "Tomorrow") {
-            if (presentDateTime > item.dueTomorrowDateTime) {
-              setDueTodayDateTime(item.dueTomorrowDateTime.toDateString);
-            } else {
-              setDueTodayDateTime(item.dueDate);
-            }
-          }
+          // if (item.status === "Today") {
+          //   if (presentDateTime > item.dueTodayDateTime) {
+          //     setDueTodayDateTime(item.dueTodayDateTime.toDateString);
+          //   } else {
+          //     setDueTodayDateTime(item.dueDate);
+          //   }
+          // } else if (item.status === "Tomorrow") {
+          //   if (presentDateTime > item.dueTomorrowDateTime) {
+          //     setDueTodayDateTime(item.dueTomorrowDateTime.toDateString);
+          //   } else {
+          //     setDueTodayDateTime(item.dueDate);
+          //   }
+          // }
 
           return <TaskItems
             key={item.id}
             details={item.task}
-            dueDate={dueTodayDateTime}
+            dueDate={item.dueDate}
             reminderDate={item.reminderDate}
             id={item.id}
             completed={item.completed}
             status={item.status}
             dueTodayDateTime={item.dueTodayDateTime}
             dueTomorrowDateTime={item.dueTomorrowDateTime}
+            dueNextWeekDateTime = {item.dueNextWeekDateTime}
+            duePickDate = {item.duePickDate}
           />
         })
       }

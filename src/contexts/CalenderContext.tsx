@@ -17,6 +17,7 @@ export type Task = {
   completed: boolean;
   status: string;
 }
+type StatusType = "today" | "tomorrow" | "nextWeek" | "pickDate";
 
 type CalenderProps = {
   // schedule is using for the calendar date 
@@ -42,6 +43,8 @@ type CalenderProps = {
   setTaskStore: React.Dispatch<React.SetStateAction<Task[]>>
   refresh: number;
   setRefresh: React.Dispatch<React.SetStateAction<number>>;
+  statusText: StatusType;
+  setStatusText: React.Dispatch<React.SetStateAction<StatusType>>;
 };
 type ProviderProp = {
   children: ReactNode;
@@ -62,6 +65,7 @@ export const CalenderContextprovider = ({ children }: ProviderProp) => {
   const [taskStore, setTaskStore] = useState<Task[]>([]);
   const [pickDateTime, setPickDateTime] = useState<Date>(new Date());
   const [refresh,setRefresh] = useState<number>(0);
+  const [statusText, setStatusText] = useState<StatusType>("today");
 
   return (
     <CalenderContext.Provider
@@ -86,6 +90,8 @@ export const CalenderContextprovider = ({ children }: ProviderProp) => {
         setPickDateTime,
         refresh,
         setRefresh,
+        statusText,
+        setStatusText,
       }}
     >
       {children}

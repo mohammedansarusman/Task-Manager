@@ -23,14 +23,14 @@ const TaskInputDataBox = () => {
   }
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>)=>{
     event.preventDefault();
-    if(!consumer?.task.trim() || consumer.schedule==="" || consumer.reminder===""){
-     return
-    }
-    consumer?.setTaskStore((prev)=>([...prev,{task:consumer.task, dueDate:consumer.schedule, reminderDate:consumer.reminder}]))
-    consumer?.setTask("");
-    consumer?.setSchedule("");
-    consumer?.setReminder("");
-    consumer.setHour("");
+    // if(!consumer?.task.trim() || consumer.schedule==="" || consumer.reminder===""){
+    //  return
+    // }
+    // consumer?.setTaskStore((prev)=>([...prev,{task:consumer.task, dueDate:consumer.schedule, reminderDate:consumer.reminder}]))
+    // consumer?.setTask("");
+    // consumer?.setSchedule("");
+    // consumer?.setReminder("");
+    // consumer.setHour("");
     
 
   }

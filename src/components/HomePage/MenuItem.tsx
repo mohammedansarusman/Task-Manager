@@ -16,9 +16,17 @@ const MenuItem = ({ day, iconName: Icon, weekDay, nextWeekDate, }: MenuItemProp)
     if (day === "Next Week") {
       if (nextWeekDate !== undefined) {
         scheduleTask?.setSchedule(nextWeekDate);
+        scheduleTask?.setStatusText("nextWeek");
       }
-    } else if (day === "Today" || day === "Tomorrow") {
+    } else if (day === "Today"){
       scheduleTask?.setSchedule(day);
+      scheduleTask?.setStatusText("today")
+
+    } else if (day === "Tomorrow"){
+      scheduleTask?.setSchedule(day);
+      scheduleTask?.setStatusText("tomorrow")
+    }else{
+      scheduleTask?.setStatusText("pickDate")
     }
     day !== "Pick a Date" && scheduleTask?.setTurnPopOver((prev) => !prev);
   };

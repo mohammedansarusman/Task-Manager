@@ -12,91 +12,132 @@ type TaskItemsProp = {
   status?: string;
   dueTodayDateTime: Date;
   dueTomorrowDateTime: Date;
-}
+  dueNextWeekDateTime: Date;
+  duePickDate: Date;
+};
 type FlagProps = {
   tick: boolean;
   important: boolean;
   tickClick?: boolean;
-}
+};
 
-export const TaskItems = ({ details, dueDate, reminderDate, id, completed, status, dueTodayDateTime, dueTomorrowDateTime}: TaskItemsProp) => {
-  const consumer = useContext(CalenderContext)
-  const [flag, setFlag] = useState<FlagProps>({ tick: false, important: false, tickClick: false })
-  const presentDateTime: Date= new Date();
+export const TaskItems = ({
+  details,
+  dueDate,
+  reminderDate,
+  id,
+  completed,
+  status,
+  dueTodayDateTime,
+  dueTomorrowDateTime,
+  dueNextWeekDateTime,
+  duePickDate,
+
+}: TaskItemsProp) => {
+  const consumer = useContext(CalenderContext);
+  const [flag, setFlag] = useState<FlagProps>({
+    tick: false,
+    important: false,
+    tickClick: false,
+  });
+  
+  const presentDateTime: Date = new Date();
   // for the activation and de-activation of tick mark in complete feature
-  const handleHover = (): void => setFlag(prev=>({...prev,tick:true}));
-  const handleMouseLeave = (): void => setFlag(prev=>({...prev,tick:false}));
-  const handleTickClick = () =>{
+  const handleHover = (): void => setFlag((prev) => ({ ...prev, tick: true }));
+  const handleMouseLeave = (): void =>
+    setFlag((prev) => ({ ...prev, tick: false }));
+  const handleTickClick = () => {
     if (!consumer) return;
-    const updated = consumer?.taskStore.map((item)=>{
-      if(item.id===id){
-        return {...item,completed:!item.completed}
-      }
-      else{
+    const updated = consumer?.taskStore.map((item) => {
+      if (item.id === id) {
+        return { ...item, completed: !item.completed };
+      } else {
         return item;
       }
-    })
+    });
     consumer?.setTaskStore(updated);
-    setFlag(prev=>({...prev,tickClick: true}));
-    
-  }
-  useEffect(()=>{
-    
-  },[consumer?.refresh])
+    setFlag((prev) => ({ ...prev, tickClick: true }));
+  };
+  useEffect(() => {}, [consumer?.refresh]);
 
-  console.log("present date",presentDateTime);
-  console.log("refresh vale",consumer?.refresh);
-  console.log("dueTodaydate time",dueTodayDateTime);
-  console.log("status",status)
+  console.log("present date", presentDateTime);
+  console.log("refresh vale", consumer?.refresh);
+  console.log("dueTodaydate time", dueTodayDateTime);
+  console.log("status", status);
 
   let result = false;
-  if(status==="Today"){
-    if(presentDateTime>dueTodayDateTime){
-      result=true;
-    }else{
+  if (status === "today") {
+    if (presentDateTime > dueTodayDateTime) {
+      result = true;
+      dueDate = dueTodayDateTime.toDateString();
+    } else {
       result = false;
     }
-  }else if(status==="Tomorrow"){
-    if(presentDateTime>dueTomorrowDateTime){
-      result=true
-    }else{
-      result=false;
+  } else if (status === "tomorrow") {
+    if (presentDateTime > dueTomorrowDateTime) {
+      result = true;
+      dueDate = dueTomorrowDateTime.toDateString();
+    } else {
+      result = false;
+    }
+  } else if (status === "nextWeek") {
+    if (presentDateTime > dueNextWeekDateTime) {
+      result = true;
+    }
+  } else {
+    if (presentDateTime > duePickDate ) {
+      result = true;
     }
   }
-  
+
   return (
-    <main className='w-[100%] h-[50px] bg-white hover:bg-slate-100 flex items-center justify-between'>
+    <main className="w-[100%] h-[50px] bg-white hover:bg-slate-100 flex items-center justify-between">
       <aside className="w-[50px] h-full">
         {/* completed/not completed Icon */}
         <figure className="flex justify-center items-center w-[100%] h-full">
           <div
-            className={`w-[15px] h-[15px] outline-1 outline-sky-500 rounded-full flex justify-center items-center ${completed && "bg-sky-600"}`}
+            className={`w-[15px] h-[15px] outline-1 outline-sky-500 rounded-full flex justify-center items-center ${
+              completed && "bg-sky-600"
+            }`}
             onMouseEnter={handleHover}
             onMouseLeave={handleMouseLeave}
             onClick={handleTickClick}
-            
           >
-            {(flag.tick || completed) ? <span className={`${completed ? "text-white" : "text-sky-600"}`}><AiOutlineCheck size={10} /></span> : ''}
+            {flag.tick || completed ? (
+              <span className={`${completed ? "text-white" : "text-sky-600"}`}>
+                <AiOutlineCheck size={10} />
+              </span>
+            ) : (
+              ""
+            )}
           </div>
         </figure>
       </aside>
       <div className="w-full flex flex-col items-start justify-between text-sm font-light text-slate-900">
         <section className="h-[25px] py-1 font-semibold">
           {/* tasks */}
-          <h1 className={`${completed ? "line-through text-gray-500" : ""} ${result ? "text-red-500" : "text-black"}`}>{details}</h1>
+          <h1 className="">{details}</h1>
         </section>
-        <section className="h-[25px] flex justify-start gap-[20px]">
+        <section className="h-[25px] flex justify-start gap-[20px] text-xs">
           {/* due date */}
-          <h1 className={completed ? "line-through text-gray-500" : ""}>{dueDate}</h1>
+          <h1
+            className={`${completed ? "line-through text-gray-500" : ""} ${
+              result ? "text-red-700" : "text-black"
+            }`}
+          >
+            {`Due ${dueDate}`}
+          </h1>
           {/* dueTodayDateTime<currentDate ? "bg-red-400" : "bg-blue-500" */}
-          <h1 className={completed ? "line-through text-gray-500" : ""}>{reminderDate}</h1>
+          <h1 className={completed ? "line-through text-gray-500" : ""}>
+            {reminderDate}
+          </h1>
         </section>
       </div>
 
       <aside className="w-[50px] h-full flex justify-center items-center">
         {/* Important  / not important Icon */}
-        <MdStar size={20} fill="blue"/>
+        <MdStar size={20} fill="blue" />
       </aside>
     </main>
-  )
-}
+  );
+};
