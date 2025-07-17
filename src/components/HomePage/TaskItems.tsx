@@ -14,6 +14,7 @@ type TaskItemsProp = {
   dueTomorrowDateTime: Date;
   dueNextWeekDateTime: Date;
   duePickDate: Date;
+  important: boolean;
 };
 type FlagProps = {
   tick: boolean;
@@ -21,31 +22,15 @@ type FlagProps = {
   tickClick?: boolean;
 };
 
-export const TaskItems = ({
-  details,
-  dueDate,
-  reminderDate,
-  id,
-  completed,
-  status,
-  dueTodayDateTime,
-  dueTomorrowDateTime,
-  dueNextWeekDateTime,
-  duePickDate,
-
-}: TaskItemsProp) => {
+export const TaskItems = ({details,dueDate,reminderDate,id,completed,status,dueTodayDateTime,dueTomorrowDateTime,dueNextWeekDateTime,duePickDate,important}: TaskItemsProp) => {
   const consumer = useContext(CalenderContext);
-  const [flag, setFlag] = useState<FlagProps>({
-    tick: false,
-    important: false,
-    tickClick: false,
-  });
-  
   const presentDateTime: Date = new Date();
+  const [flag, setFlag] = useState<FlagProps>({tick: false, important: false,tickClick: false});
   // for the activation and de-activation of tick mark in complete feature
+  
   const handleHover = (): void => setFlag((prev) => ({ ...prev, tick: true }));
-  const handleMouseLeave = (): void =>
-    setFlag((prev) => ({ ...prev, tick: false }));
+
+  const handleMouseLeave = (): void => setFlag((prev) => ({ ...prev, tick: false }));
   const handleTickClick = () => {
     if (!consumer) return;
     const updated = consumer?.taskStore.map((item) => {
@@ -58,13 +43,21 @@ export const TaskItems = ({
     consumer?.setTaskStore(updated);
     setFlag((prev) => ({ ...prev, tickClick: true }));
   };
+  const handleImportant = (): void =>{
+    if (!consumer) return;
+    const updateTaskStore = consumer?.taskStore.map((item)=>{
+      if (item.id === id) {
+        return { ...item, important: !item.important};
+      } else {
+        return item;
+      }
+    });
+    consumer?.setTaskStore(updateTaskStore);
+  }
+
   useEffect(() => {}, [consumer?.refresh]);
 
-  console.log("present date", presentDateTime);
-  console.log("refresh vale", consumer?.refresh);
-  console.log("dueTodaydate time", dueTodayDateTime);
-  console.log("status", status);
-
+  
   let result = false;
   if (status === "today") {
     if (presentDateTime > dueTodayDateTime) {
@@ -136,7 +129,12 @@ export const TaskItems = ({
 
       <aside className="w-[50px] h-full flex justify-center items-center">
         {/* Important  / not important Icon */}
-        <MdStar size={20} fill="blue" />
+        <span>
+          {!important ? 
+            <MdStarBorder size={20} fill="blue" onClick={handleImportant}/> :
+            <MdStar size={20} fill="blue" onClick={handleImportant}/>
+          }
+        </span>
       </aside>
     </main>
   );

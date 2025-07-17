@@ -65,6 +65,7 @@ const TaskDateAlarm = () => {
         id: id,
         completed:false,
         status: consumer.statusText,
+        important: false,
       }
       ]
     ))

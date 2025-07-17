@@ -24,20 +24,6 @@ export const TaskBlock = () => {
         .slice()
         .reverse()
         .map((item) => {
-          // if (item.status === "Today") {
-          //   if (presentDateTime > item.dueTodayDateTime) {
-          //     setDueTodayDateTime(item.dueTodayDateTime.toDateString);
-          //   } else {
-          //     setDueTodayDateTime(item.dueDate);
-          //   }
-          // } else if (item.status === "Tomorrow") {
-          //   if (presentDateTime > item.dueTomorrowDateTime) {
-          //     setDueTodayDateTime(item.dueTomorrowDateTime.toDateString);
-          //   } else {
-          //     setDueTodayDateTime(item.dueDate);
-          //   }
-          // }
-
           return <TaskItems
             key={item.id}
             details={item.task}
@@ -50,6 +36,7 @@ export const TaskBlock = () => {
             dueTomorrowDateTime={item.dueTomorrowDateTime}
             dueNextWeekDateTime = {item.dueNextWeekDateTime}
             duePickDate = {item.duePickDate}
+            important = {item.important}
           />
         })
       }
@@ -77,6 +64,8 @@ export const TaskBlock = () => {
             status={item.status}
             dueTodayDateTime={item.dueTodayDateTime}
             dueTomorrowDateTime={item.dueTomorrowDateTime}
+            dueNextWeekDateTime = {item.dueNextWeekDateTime}
+            duePickDate = {item.duePickDate}
           />
         ))
       }

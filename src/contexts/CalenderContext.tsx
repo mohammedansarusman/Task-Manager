@@ -16,6 +16,7 @@ export type Task = {
   reminderPickDateTime?: Date;
   completed: boolean;
   status: string;
+  important: boolean
 }
 type StatusType = "today" | "tomorrow" | "nextWeek" | "pickDate";
 

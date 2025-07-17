@@ -1,4 +1,3 @@
-import React from "react";
 import SideBar from "./SideBar";
 import TaskBarHeading from "./TaskBarHeading";
 import TasksComponent from "./TasksComponent";
