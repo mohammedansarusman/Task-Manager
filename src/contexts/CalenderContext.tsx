@@ -46,6 +46,8 @@ type CalenderProps = {
   setRefresh: React.Dispatch<React.SetStateAction<number>>;
   statusText: StatusType;
   setStatusText: React.Dispatch<React.SetStateAction<StatusType>>;
+  clickTaskItem: boolean;
+  setClickTaskItem: React.Dispatch<React.SetStateAction<boolean>>;
 };
 type ProviderProp = {
   children: ReactNode;
@@ -67,6 +69,7 @@ export const CalenderContextprovider = ({ children }: ProviderProp) => {
   const [pickDateTime, setPickDateTime] = useState<Date>(new Date());
   const [refresh,setRefresh] = useState<number>(0);
   const [statusText, setStatusText] = useState<StatusType>("today");
+  const [clickTaskItem, setClickTaskItem] = useState<boolean>(true);
 
   return (
     <CalenderContext.Provider
@@ -93,6 +96,8 @@ export const CalenderContextprovider = ({ children }: ProviderProp) => {
         setRefresh,
         statusText,
         setStatusText,
+        clickTaskItem,
+        setClickTaskItem,
       }}
     >
       {children}

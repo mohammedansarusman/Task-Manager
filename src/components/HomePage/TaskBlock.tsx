@@ -1,23 +1,16 @@
 import { TaskItems } from "./TaskItems";
 import { useContext, useState} from "react";
 import { CalenderContext, type Task } from "../../contexts/CalenderContext";
-// import { AiOutlineDown } from "react-icons/ai";
 import { AiOutlineRight } from "react-icons/ai";
-
-
 
 export const TaskBlock = () => {
   const consumer = useContext(CalenderContext);
   const completedTasks: Task[] = consumer?.taskStore.filter(item => item.completed === true) ?? [];
   const notCompletedTasks: Task[] = consumer?.taskStore.filter(item => !item.completed) ?? [];
   const [flagArrow, setFlagArrow] = useState<boolean>(false)
-  // const presentDateTime: Date = new Date()
   const [dueTodayDateTime, setDueTodayDateTime] = useState<string>("");
 
-
   console.log("task store in taskblock", notCompletedTasks);
-
-
   return (
     <div className="w-full drop-shadow-md drop-shadow-gray-300  flex flex-col justify-center pl-[70px] pr-[20px] gap-1">
       {notCompletedTasks
@@ -66,6 +59,8 @@ export const TaskBlock = () => {
             dueTomorrowDateTime={item.dueTomorrowDateTime}
             dueNextWeekDateTime = {item.dueNextWeekDateTime}
             duePickDate = {item.duePickDate}
+            important = {item.important}
+
           />
         ))
       }
