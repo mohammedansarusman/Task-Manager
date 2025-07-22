@@ -2,6 +2,7 @@ import TaskInputDataBox from "./TaskInputDataBox";
 import { TaskBlock } from "./TaskBlock";
 import { useContext } from "react";
 import { CalenderContext } from "../../contexts/CalenderContext";
+import SingleTask from "./SingleTask";
 
 const TasksComponent = () => {
   const consumer = useContext(CalenderContext)
@@ -13,8 +14,8 @@ const TasksComponent = () => {
         <TaskBlock />
       </div>
       {/* Task edit and delete features existing here */} 
-      {!consumer?.clickTaskItem && <div className="w-[25%] h-full bg-stone-100">
-        
+      {!consumer?.clickTaskItem && <div className="w-[25%] h-full flex flex-col items-center bg-stone-100 pt-[10px]">
+        <SingleTask id = {consumer?.taskId}/>
       </div>}
     </div>
   );

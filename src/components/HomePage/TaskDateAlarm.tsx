@@ -78,7 +78,6 @@ const TaskDateAlarm = () => {
   }
   return (
     <section className="w-full h-[50px] bg-gray-100 mt-[2px] flex justify-between items-center">
-      {/* {console.log("hello=>",dueTodayDateTime)} */}
       <div className="w-[75%] h-full flex justify-start items-center gap-2 pl-[20px] text-black ">
         {/* due date */}
         <div className="cursor-pointer focus:bg-white outline-none" tabIndex={0}>{<SelectCalender />}</div>

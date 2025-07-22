@@ -8,11 +8,12 @@ type FlagProps = {
   tickClick?: boolean;
 };
 type CompletedTaskProp = {
-    id: number;
-    completed: boolean;
+    id: number|undefined;
+    completed: boolean | undefined;
 }
 
 export const CompletedTask = ({id, completed}: CompletedTaskProp) => {
+  console.log("completed =>",completed);
     const [flag, setFlag] = useState<FlagProps>({tick: false, tickClick: false});
     const consumer = useContext(CalenderContext);
       // for the activation and de-activation of tick mark in complete feature

@@ -57,8 +57,10 @@ export const TaskItems = ({ details, dueDate, reminderDate, id, completed, statu
   }
 
   const handleTaskItemClick = () => {
-    console.log("clicked", consumer?.clickTaskItem);
-    consumer?.setClickTaskItem((prev) => !prev);
+    consumer?.setClickTaskItem(false);
+    consumer?.setTaskId(id);
+    consumer?.setTaskDetails(details);
+    
   };
 
   return (
@@ -66,7 +68,9 @@ export const TaskItems = ({ details, dueDate, reminderDate, id, completed, statu
       className="w-[100%] h-[50px] bg-white hover:bg-slate-100 flex items-center justify-between"
       onClick={handleTaskItemClick}
     >
+     {/* ----------------------------------------- */}
       <CompletedTask completed={completed} id={id} />
+     {/* ----------------------------------------- */}
       <div className="w-full flex flex-col items-start justify-between text-sm font-light text-slate-900">
         <section className="h-[25px] py-1 font-semibold">
           {/* tasks */}
