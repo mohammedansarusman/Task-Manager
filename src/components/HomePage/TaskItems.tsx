@@ -59,7 +59,7 @@ export const TaskItems = ({ details, dueDate, reminderDate, id, completed, statu
   const handleTaskItemClick = () => {
     consumer?.setClickTaskItem(false);
     consumer?.setTaskId(id);
-    consumer?.setTaskDetails(details);
+    consumer?.setTaskDetails((prev)=>({...prev,task:details,completed:completed,important:important}));
     
   };
 

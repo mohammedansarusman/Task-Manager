@@ -20,6 +20,12 @@ export type Task = {
 }
 type StatusType = "today" | "tomorrow" | "nextWeek" | "pickDate";
 
+type TaskDetailsProp = {
+  task: string;
+  completed: boolean;
+  important: boolean;
+}
+
 
 
 
@@ -53,8 +59,8 @@ type CalenderProps = {
   setClickTaskItem: React.Dispatch<React.SetStateAction<boolean>>;
   taskId: number;
   setTaskId: React.Dispatch<React.SetStateAction<number>>;
-  taskDetails: string;
-  setTaskDetails: React.Dispatch<React.SetStateAction<string>>
+  taskDetails: TaskDetailsProp;
+  setTaskDetails: React.Dispatch<React.SetStateAction<TaskDetailsProp>>
 };
 type ProviderProp = {
   children: ReactNode;
@@ -78,7 +84,7 @@ export const CalenderContextprovider = ({ children }: ProviderProp) => {
   const [statusText, setStatusText] = useState<StatusType>("today");
   const [clickTaskItem, setClickTaskItem] = useState<boolean>(true);
   const [taskId, setTaskId] = useState<number>(0);
-  const [taskDetails, setTaskDetails] = useState<string>("");
+  const [taskDetails, setTaskDetails] = useState<TaskDetailsProp>({task:"",completed:false,important:false});
   
   return (
     <CalenderContext.Provider

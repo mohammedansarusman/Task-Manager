@@ -10,41 +10,44 @@ type SingleTaskProp = {
 
 const SingleTask = ({ id }: SingleTaskProp) => {
   const consumer = useContext(CalenderContext);
-  const selectedItem: Task | undefined = consumer?.taskStore.find(
-    (item) => item.id === id
-  );
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    consumer?.setTaskDetails(e.target.value);
+  
 
-
-  };
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (consumer?.taskStore) {
       const result = consumer?.taskStore.map(item => {
         if (item.id === id) {
-          return { ...item, task: consumer.taskDetails }
+          return { ...item, task: consumer.taskDetails.task, completed: consumer.taskDetails.completed, important: consumer.taskDetails.important }
         }
         else {
           return item;
         }
       })
-      console.log("result=>", result);
-      consumer?.setTaskStore(result);
+      consumer.setTaskStore(result);
+      
     }
   }
+  const handleCompleted = () =>{
+    consumer?.setTaskDetails((prev)=>({...prev,completed:!prev.completed}))
+  }
+  const handleImportant = () =>{
+    consumer?.setTaskDetails((prev)=>({...prev,important:!prev.important}))
+  }
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    consumer?.setTaskDetails((prev)=>({...prev,task:e.target.value}))    
+  };
 
   return (
     <div className="bg-white w-[95%] h-[70px] flex justify-between items-center px-[10px]">
       {/* COMPLETED / NOT COMPLETED ICON */}
       <div className="w-[10%]">
         <div
-          className={`w-[15px] h-[15px] outline-1 outline-sky-500 rounded-full flex justify-center items-center ${selectedItem?.completed && "bg-sky-600"
-            }`}
+          className={`w-[15px] h-[15px] outline-1 outline-sky-500 rounded-full flex justify-center items-center ${consumer?.taskDetails.completed ? "bg-sky-600" : "bg-white"}`}
+          onClick={handleCompleted}
         >
-          {selectedItem?.completed ? (
+          {consumer?.taskDetails.completed ? (
             <span
-              className={`${selectedItem?.completed ? "text-white" : "text-sky-600"
+              className={`${consumer.taskDetails.completed ? "text-white" : "text-sky-600"
                 }`}
             >
               <AiOutlineCheck size={10} />
@@ -65,14 +68,17 @@ const SingleTask = ({ id }: SingleTaskProp) => {
         <input
           type="text"
           className="w-full outline-none"
-          value={consumer?.taskDetails}
+          value={consumer?.taskDetails.task}
           onChange={handleChange}
         />
       </form>
       <div className="w-[10%]">
-        <div className="w-[50px] h-full flex justify-center items-center">
+        <div 
+          className="w-[50px] h-full flex justify-center items-center"
+          onClick={handleImportant}
+        >
           <span>
-            {!selectedItem?.important ? (
+            {!consumer?.taskDetails.important ? (
               <MdStarBorder size={20} fill="blue" />
             ) : (
               <MdStar size={20} fill="blue" />
